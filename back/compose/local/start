@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+printf "\n"
+printf "################################\n"
+printf "#   Instalando dependências    #\n"
+printf "################################\n"
+printf "\n\n"
+
+npm install
+
+printf "\n"
+printf "##############################\n"
+printf "#  Inicializando o SERVER    #\n"
+printf "##############################\n"
+printf "#   Variáveis de ambiente    #\n"
+printf "##############################\n"
+printf "\n\n"
+
+export $(grep -v '^#' .env/back.env | xargs)
+cat .env/back.env
+
+printf "\n\n"
+printf "###########################\n"
+printf "# Compilando e executando #\n"
+printf "###########################\n"
+printf "\n"
+
+export NODE_ENV=$SERVER_ENV
+npm start
